@@ -36,10 +36,10 @@ class VKBaseTest(BaseTest):
         self.payment.order.collection.drop()
 
 
-    def info_args(self, item='gems_10', ntype=GET_ITEM):
+    def info_args(self, item='3', ntype=GET_ITEM):
         return self.sign({'notification_type': ntype, 'item': item})
 
-    def order_args(self, item='gems_10', ntype=ORDER):
+    def order_args(self, item='3', ntype=ORDER):
         return self.sign({'notification_type': ntype, 'item': item,
                           'status': CHARGEABLE, 'order_id': 1,
                           'receiver_id': 'uid'})

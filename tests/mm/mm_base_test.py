@@ -13,9 +13,9 @@ class MMBaseTest(BaseTest):
         self.payment = BillingCore.payment
         self.payment.order.collection.drop()
 
-    def args(self, transaction_id=3751, mailiki_price=1):
+    def args(self, service_id=3, transaction_id=3751, mailiki_price=1):
         return dict(
-            transaction_id=transaction_id, service_id=10,
+            transaction_id=transaction_id, service_id=service_id,
             uid=104,
             mailiki_price=mailiki_price,
             other_price=10000,

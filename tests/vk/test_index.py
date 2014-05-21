@@ -23,21 +23,24 @@ class IndexTest(AsyncHTTPTestCase, VKBaseTest):
 
     def test_post_get_info(self):
         self.eq(
-            self.post(self.info_args('gems_20')),
-            self.payment.info('gems_20')
+            self.post(self.info_args(4)),
+            self.payment.info('gems', 20)
         )
 
     def test_post_get_info_test(self):
-        self.eq(self.post(self.info_args('gems_20', ntype=GET_ITEM + '_test')),
-                self.payment.info('gems_20'))
+        self.eq(self.post(self.info_args(4, ntype=GET_ITEM + '_test')),
+                self.payment.info('gems', 20))
 
     def test_post_order(self):
         self.eq(self.post(self.order_args()),
-                self.payment.order('1', 'uid', 'gems_10', CHARGEABLE))
+                self.payment.order('1', 'uid', 'gems', 20, CHARGEABLE))
 
     def test_errors(self):
-        for error, item in [(ItemFormatError(), 'gems_no'),
-                            (UnknownItemError(), 'coins_10'),
-                            (InvalidCountError(), 'gems_11')]:
-            self.eq(self.post(self.info_args(item=item)),
-                    error.response())
+        self.eq(
+            self.post(self.info_args(item='gems_no')),
+            ItemFormatError().response()
+        )
+        self.eq(
+            self.post(self.info_args(item='55')),
+            UnknownItemError().response()
+        )

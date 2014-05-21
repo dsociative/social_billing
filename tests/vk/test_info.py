@@ -28,7 +28,7 @@ class InfoTest(VKBaseTest):
 
     def test_info(self):
         self.eq(
-            self.info('gems_10'),
+            self.info('gems', 10),
             self.info.response(
                 {
                     'title': self.info.title('gems', 10),
@@ -37,13 +37,6 @@ class InfoTest(VKBaseTest):
                 }
             )
         )
-
-    def test_info_error(self):
-        for error, item in [(ItemFormatError, 'gems_no'),
-                            (UnknownItemError, 'coins_10'),
-                            (InvalidCountError, 'gems_11')]:
-
-            self.raises(error, self.info, item)
 
     def test_item_format_error(self):
         self.raises(ItemFormatError, self.info.split_item_count, 'item_no')

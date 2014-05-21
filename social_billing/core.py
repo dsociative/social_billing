@@ -1,7 +1,4 @@
 # -*- coding: utf8 -*-
-import os
-
-import tornado
 
 
 class BillingCore(object):
@@ -16,8 +13,5 @@ class BillingCore(object):
 
     @classmethod
     def init(cls, social_name, default_item, *args):
-        tornado.locale.load_translations(
-            os.path.join(os.path.dirname(__file__), "vk/translations")
-        )
         cls.default_item = default_item
         cls.payment = cls.get_payment(social_name)(*args)

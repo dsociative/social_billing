@@ -5,8 +5,7 @@ from social_billing.vk.engine.handler.billing import BillingHandler
 
 class Info(BillingHandler, BaseHandler):
 
-    def __call__(self, item_count):
-        name, count = self.split_item_count(item_count)
+    def __call__(self, name, count):
         good = self.get_good(name)
         return self.response(
             {

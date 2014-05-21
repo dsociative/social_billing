@@ -15,7 +15,8 @@ class ODBaseTest(BaseTest):
 
     def args(self, transaction_id=3751, amount=1):
         return dict(
-            transaction_id=transaction_id, product_code=10,
+            transaction_id=transaction_id,
+            product_code=3,
             uid=104,
             amount=amount,
             other_price=10000,
