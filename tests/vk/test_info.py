@@ -10,7 +10,7 @@ class InfoTest(VKBaseTest):
     def setUp(self):
         super(InfoTest, self).setUp()
         self.info = Info(self.items)
-        self.gems = self.info.get_item('gems')
+        self.gems = self.info.get_good('gems')
 
     def test_item(self):
         self.eq(self.info.split_item_count('gems_20'), ('gems', 20))
@@ -23,13 +23,18 @@ class InfoTest(VKBaseTest):
     def test_title(self):
         self.eq(self.info.title('gems', 20), u'20 алмазов')
         self.eq(self.info.title('gems', 10), u'10 алмазов')
+        self.eq(self.info.title('gems', 1), u'1 алмаз')
+        self.eq(self.info.title('gems', 3), u'3 алмаза')
 
     def test_info(self):
         self.eq(
             self.info('gems_10'),
             self.info.response(
-                {'title': self.info.title('gems', 10), 'price': 1,
-                 'photo_url': self.items['gems']['image']}
+                {
+                    'title': self.info.title('gems', 10),
+                    'price': 1,
+                    'photo_url': self.items['gems']['image']
+                }
             )
         )
 
@@ -45,7 +50,7 @@ class InfoTest(VKBaseTest):
         self.raises(ItemFormatError, self.info.split_item_count, 'item10')
 
     def test_unknown_item(self):
-        self.raises(UnknownItemError, self.info.get_item, 'item')
+        self.raises(UnknownItemError, self.info.get_good, 'item')
 
     def test_invalid_count(self):
         self.raises(InvalidCountError, self.info.price, self.gems, 11)

@@ -17,8 +17,27 @@ class Engine(object):
 
 class BaseTest(ZTest):
     items = {
-        'gems': {'prices': {10: 1, 20: 2},
-                 'image': 'image_url'}
+        u'gems': {
+            u'prices': {
+                1: {
+                    u'price': 1,
+                    u'title': u'1 алмаз'
+                },
+                3: {
+                    u'price': 1,
+                    u'title': u'3 алмаза'
+                },
+                10: {
+                    u'price': 1,
+                    u'title': u'10 алмазов'
+                },
+                20: {
+                    u'price': 2,
+                    u'title': u'20 алмазов'
+                }
+            },
+            u'image': u'image_url'
+        }
     }
 
     engine = Engine()

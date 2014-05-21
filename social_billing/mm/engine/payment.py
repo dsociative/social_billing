@@ -1,26 +1,24 @@
 # -*- coding: utf8 -*-
+from social_billing.base_handler import BaseHandler
 from social_billing.core import BillingCore
 from social_billing.mm.engine.order import MMOrder
 from social_billing.vk.engine.errors import SignatureError, InvalidCountError
 from social_billing.vk.engine.signature import Signature
 
 
-class MMPayment(object):
+class MMPayment(BaseHandler):
     COUNT_FIELD = 'service_id'
     PRICE_FIELD = 'mailiki_price'
 
-    def __init__(self, name, prices, secret, callback):
+    def __init__(self, name, goods, secret, callback):
+        super(MMPayment, self).__init__(goods)
         self.signature = Signature(secret)
-        self.prices = prices
         self.callback = callback
         self.order = MMOrder(name, callback)
         self.item = BillingCore.default_item
 
-    def get_price(self, count):
-        return self.prices[self.item]['prices'].get(count)
-
     def check_price(self, count, price):
-        if self.get_price(count) != price:
+        if self.price(self.get_good(self.item), count) != price:
             raise InvalidCountError
 
     def request(self, args):

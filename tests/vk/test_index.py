@@ -22,8 +22,10 @@ class IndexTest(AsyncHTTPTestCase, VKBaseTest):
         return json.loads(response.body)
 
     def test_post_get_info(self):
-        self.eq(self.post(self.info_args('gems_20')),
-                self.payment.info('gems_20'))
+        self.eq(
+            self.post(self.info_args('gems_20')),
+            self.payment.info('gems_20')
+        )
 
     def test_post_get_info_test(self):
         self.eq(self.post(self.info_args('gems_20', ntype=GET_ITEM + '_test')),

@@ -8,10 +8,6 @@ class MMPaymentTest(MMBaseTest):
     signature_error = {'status': 0, 'error_code': 700}
     price_error = {'status': 0, 'error_code': 703}
 
-    def test_get_price(self):
-        self.eq(self.payment.get_price(10), 1)
-        self.eq(self.payment.get_price(20), 2)
-
     def test_buy(self):
         for _ in xrange(10):
             self.eq(self.payment.request(self.signed_args()), self.ok)
