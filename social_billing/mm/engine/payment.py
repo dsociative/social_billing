@@ -30,7 +30,7 @@ class MMPayment(BaseHandler, BasePayment):
             price = int(args[self.PRICE_FIELD])
             self.check_price(name, item_id, price)
             return self.order(args['uid'], args['transaction_id'], name,
-                              count)
+                              item_id)
         except SignatureError:
             return {'status': 0, 'error_code': 700}
         except InvalidCountError:

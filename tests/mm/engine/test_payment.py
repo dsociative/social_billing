@@ -17,12 +17,12 @@ class MMPaymentTest(MMBaseTest):
     def test_buy(self):
         for _ in xrange(10):
             self.eq(self.payment.request(self.signed_args()), self.ok)
-            self.eq(self.engine.log, [(104, 'gems', 10)])
+            self.eq(self.engine.log, [(104, 'gems', 3)])
 
         self.payment.request((self.signed_args(transaction_id=1)))
         self.eq(
             self.engine.log,
-            [(104, 'gems', 10), (104, 'gems', 10)]
+            [(104, 'gems', 3), (104, 'gems', 3)]
         )
 
     def test_buy_something_else(self):
@@ -32,7 +32,7 @@ class MMPaymentTest(MMBaseTest):
         )
         self.eq(
             self.engine.log,
-            [(104, 'vip', 23)]
+            [(104, 'vip', 10)]
         )
 
     def test_signature_error(self):

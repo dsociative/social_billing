@@ -20,11 +20,13 @@ class PaymentTest(VKBaseTest):
 
     def test_request_order(self):
         self.eq(self.payment.request(self.order_args()),
-                self.payment.order(1, 'uid', 'gems', 10, CHARGEABLE))
+                self.payment.order(1, 'uid', 'gems', 3, CHARGEABLE))
+        self.eq(self.engine.log, [('uid', u'gems', 3)])
 
     def test_request_order_test(self):
         self.eq(self.payment.request(self.order_args(ntype=ORDER_TEST)),
                 self.payment.order(1, 'uid', 'gems', 10, CHARGEABLE))
+        self.eq(self.engine.log, [('uid', u'gems', 3)])
 
     def test_request_error_order(self):
         self.eq(self.payment.request(self.order_args('gems10')),

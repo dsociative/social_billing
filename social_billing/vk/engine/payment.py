@@ -32,7 +32,7 @@ class VKPayment(BasePayment):
                 return self.info(name, item_id)
             if notification_type.startswith(ORDER):
                 return self.order(args['order_id'], args['receiver_id'],
-                                  name, count, args['status'])
+                                  name, item_id, args['status'])
         except (ItemFormatError, UnknownItemError, InvalidCountError,
                 CallbackError, SignatureError) as error:
             return error.response()

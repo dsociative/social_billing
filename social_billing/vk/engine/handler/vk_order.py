@@ -11,7 +11,7 @@ class VKOrder(BaseOrder, BillingHandler):
     def ischargeable(self, status):
         return status == CHARGEABLE
 
-    def __call__(self, order_id, receiver_id, name, count, status):
+    def __call__(self, order_id, receiver_id, name, item_id, status):
         if not self.has_order(order_id) and self.ischargeable(status):
-            self.process(order_id, receiver_id, name, count)
+            self.process(order_id, receiver_id, name, item_id)
         return self.response({'order_id': order_id})
