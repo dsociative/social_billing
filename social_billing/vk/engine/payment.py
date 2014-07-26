@@ -1,39 +1,38 @@
 # -*- coding: utf-8 -*-
-from pymongo import Connection
+from social_billing.base_payment import BasePayment
 
-from social_billing.engine.errors import ItemFormatError, UnknownItemError,\
+from social_billing.vk.engine.errors import ItemFormatError, UnknownItemError,\
     InvalidCountError, CallbackError, SignatureError
-from social_billing.engine.handler.info import Info
-from social_billing.engine.handler.order import Order
-from social_billing.engine.handler.billing import BillingHandler
-from social_billing.engine.signature import Signature
+from social_billing.vk.engine.handler.info import Info
+from social_billing.vk.engine.handler.vk_order import VKOrder
+from social_billing.vk.engine.signature import Signature
 
 
 ORDER = 'order_status_change'
 GET_ITEM = 'get_item'
 
 
-class Payment(BillingHandler):
+class VKPayment(BasePayment):
 
-    def __init__(self, name, prices, secret, callback):
-        self.db = Connection()['payment_%s' % name]
-        self.collection = self.db['order']
-
+    def __init__(self, name, goods, secret, callback):
         self.signature = Signature(secret)
-        self.info = Info(prices)
-        self.order = Order(self.collection, callback)
+        self.info = Info(goods)
+        self.order = VKOrder(name, callback)
+        super(VKPayment, self).__init__(goods)
 
     def request(self, args):
         notification_type = args.get('notification_type')
-
         try:
             if not self.signature.check(args, args.pop('sig')):
                 raise SignatureError()
+
+            item_id, name, count = self.get_name_count(args['item'])
+
             if notification_type.startswith(GET_ITEM):
-                return self.info(args['item'])
+                return self.info(name, item_id)
             if notification_type.startswith(ORDER):
                 return self.order(args['order_id'], args['receiver_id'],
-                                  args['item'], args['status'])
+                                  name, item_id, args['status'])
         except (ItemFormatError, UnknownItemError, InvalidCountError,
                 CallbackError, SignatureError) as error:
             return error.response()

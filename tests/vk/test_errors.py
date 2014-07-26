@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from social_billing.base_test import BaseTest
-from social_billing.engine.errors import CallbackError, InvalidCountError,\
+from tests.vk.vk_base_test import VKBaseTest
+from social_billing.vk.engine.errors import CallbackError, InvalidCountError,\
     ItemFormatError, UnknownItemError
 
 
-class ErorrsTest(BaseTest):
+class ErorrsTest(VKBaseTest):
 
     def test_item_format(self):
         error = ItemFormatError()
@@ -25,5 +25,3 @@ class ErorrsTest(BaseTest):
         error = CallbackError()
         self.eq(error.code, 1)
         self.eq(error.name, u'callback error')
-
-    

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from hashlib import md5
 
-from social_billing.base_test import BaseTest
-from social_billing.engine.signature import Signature
+from tests.vk.vk_base_test import VKBaseTest
+from social_billing.vk.engine.signature import Signature
 
 
-class SignatureTest(BaseTest):
+class SignatureTest(VKBaseTest):
 
     def setUp(self):
         self.signature = Signature('secretkey')
