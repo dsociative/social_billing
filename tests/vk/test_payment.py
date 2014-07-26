@@ -12,11 +12,11 @@ class PaymentTest(VKBaseTest):
 
     def test_request_info(self):
         self.eq(self.payment.request(self.info_args()),
-                self.payment.info('gems', 10))
+                self.payment.info('gems', 3))
 
     def test_request_info_test(self):
         self.eq(self.payment.request(self.info_args(ntype=GET_ITEM_TEST)),
-                self.payment.info('gems', 10))
+                self.payment.info('gems', 3))
 
     def test_request_order(self):
         self.eq(self.payment.request(self.order_args()),

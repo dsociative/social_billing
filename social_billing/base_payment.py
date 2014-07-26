@@ -8,15 +8,17 @@ class BasePayment(object):
 
     def make_goods_mapper(self, goods):
         for good, items in goods.iteritems():
-            for count, item in items['prices'].iteritems():
-                yield item['id'], (good, count)
+            for item_id, item in items.iteritems():
+                yield item_id, (good, item['count'])
 
     def get_name_count(self, item_id):
         if type(item_id) is not int and not item_id.isdigit():
             raise ItemFormatError
 
-        name_count = self.mapper.get(int(item_id))
+        item_id = int(item_id)
+        name_count = self.mapper.get(item_id)
         if name_count is None:
             raise UnknownItemError
 
-        return name_count
+        name, count = name_count
+        return item_id, name, count

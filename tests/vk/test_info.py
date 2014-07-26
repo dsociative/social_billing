@@ -12,35 +12,27 @@ class InfoTest(VKBaseTest):
         self.info = Info(self.items)
         self.gems = self.info.get_good('gems')
 
-    def test_item(self):
-        self.eq(self.info.split_item_count('gems_20'), ('gems', 20))
-        self.eq(self.info.split_item_count('gems_10'), ('gems', 10))
-
     def test_price(self):
-        self.eq(self.info.price(self.gems, 10), 1)
-        self.eq(self.info.price(self.gems, 20), 2)
+        self.eq(self.info.price(self.gems, 3), 1)
+        self.eq(self.info.price(self.gems, 4), 2)
 
     def test_title(self):
-        self.eq(self.info.title('gems', 20), u'20 алмазов')
-        self.eq(self.info.title('gems', 10), u'10 алмазов')
+        self.eq(self.info.title('gems', 4), u'20 алмазов')
+        self.eq(self.info.title('gems', 3), u'10 алмазов')
         self.eq(self.info.title('gems', 1), u'1 алмаз')
-        self.eq(self.info.title('gems', 3), u'3 алмаза')
+        self.eq(self.info.title('gems', 2), u'3 алмаза')
 
     def test_info(self):
         self.eq(
-            self.info('gems', 10),
+            self.info('gems', 3),
             self.info.response(
                 {
-                    'title': self.info.title('gems', 10),
+                    'title': self.info.title('gems', 3),
                     'price': 1,
-                    'photo_url': self.items['gems']['image']
+                    'photo_url': self.items['gems'][3]['image']
                 }
             )
         )
-
-    def test_item_format_error(self):
-        self.raises(ItemFormatError, self.info.split_item_count, 'item_no')
-        self.raises(ItemFormatError, self.info.split_item_count, 'item10')
 
     def test_unknown_item(self):
         self.raises(UnknownItemError, self.info.get_good, 'item')

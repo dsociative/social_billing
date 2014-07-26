@@ -26,10 +26,10 @@ class VKPayment(BasePayment):
             if not self.signature.check(args, args.pop('sig')):
                 raise SignatureError()
 
-            name, count = self.get_name_count(args['item'])
+            item_id, name, count = self.get_name_count(args['item'])
 
             if notification_type.startswith(GET_ITEM):
-                return self.info(name, count)
+                return self.info(name, item_id)
             if notification_type.startswith(ORDER):
                 return self.order(args['order_id'], args['receiver_id'],
                                   name, count, args['status'])

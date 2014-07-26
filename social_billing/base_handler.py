@@ -12,19 +12,19 @@ class BaseHandler(object):
             raise UnknownItemError()
         return item
 
-    def get_item(self, good, count):
-        item = good['prices'].get(count)
+    def get_item(self, good, item_id):
+        item = good.get(item_id)
 
         if item is None:
             raise InvalidCountError()
         else:
             return item
 
-    def price(self, good, count):
-        return self.get_item(good, count)['price']
+    def price(self, good, item_id):
+        return self.get_item(good, item_id)['price']
 
-    def title(self, name, count):
-        return self.get_item(self.get_good(name), count)['title']
+    def title(self, name, item_id):
+        return self.get_item(self.get_good(name), item_id)['title']
 
-    def image(self, item):
-        return item.get('image', '')
+    def image(self, good, item_id):
+        return self.get_item(good, item_id).get('image', '')

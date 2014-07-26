@@ -24,12 +24,12 @@ class IndexTest(AsyncHTTPTestCase, VKBaseTest):
     def test_post_get_info(self):
         self.eq(
             self.post(self.info_args(4)),
-            self.payment.info('gems', 20)
+            self.payment.info('gems', 4)
         )
 
     def test_post_get_info_test(self):
         self.eq(self.post(self.info_args(4, ntype=GET_ITEM + '_test')),
-                self.payment.info('gems', 20))
+                self.payment.info('gems', 4))
 
     def test_post_order(self):
         self.eq(self.post(self.order_args()),

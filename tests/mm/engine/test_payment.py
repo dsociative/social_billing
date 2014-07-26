@@ -9,10 +9,10 @@ class MMPaymentTest(MMBaseTest):
     price_error = {'status': 0, 'error_code': 703}
 
     def test_get_name_count(self):
-        self.eq(self.payment.get_name_count(1), ('gems', 1))
-        self.eq(self.payment.get_name_count(2), ('gems', 3))
-        self.eq(self.payment.get_name_count(3), ('gems', 10))
-        self.eq(self.payment.get_name_count(4), ('gems', 20))
+        self.eq(self.payment.get_name_count('1'), (1, 'gems', 1))
+        self.eq(self.payment.get_name_count('2'), (2, 'gems', 3))
+        self.eq(self.payment.get_name_count('3'), (3, 'gems', 10))
+        self.eq(self.payment.get_name_count('4'), (4, 'gems', 20))
 
     def test_buy(self):
         for _ in xrange(10):

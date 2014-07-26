@@ -19,17 +19,16 @@ class MMPayment(BaseHandler, BasePayment):
         self.callback = callback
         self.order = MMOrder(name, callback)
 
-    def check_price(self, name, count, price):
-        if self.price(self.get_good(name), count) != price:
+    def check_price(self, name, item_id, price):
+        if self.price(self.get_good(name), item_id) != price:
             raise InvalidCountError
 
     def request(self, args):
         try:
             self.signature.try_check(args)
-            item_id = int(args[self.COUNT_FIELD])
-            name, count = self.get_name_count(item_id)
+            item_id, name, count = self.get_name_count(args[self.COUNT_FIELD])
             price = int(args[self.PRICE_FIELD])
-            self.check_price(name, count, price)
+            self.check_price(name, item_id, price)
             return self.order(args['uid'], args['transaction_id'], name,
                               count)
         except SignatureError:
