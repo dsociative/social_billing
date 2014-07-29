@@ -5,5 +5,5 @@ python:
 services:
   - mongodb
 install:
-  - pip install . --use-mirrors
+  - python setup.py install
 script: nosetests 

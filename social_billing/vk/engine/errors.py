@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class BaseException(Exception):
+class BaseBillingException(Exception):
 
     critical = 1
 
@@ -10,31 +10,31 @@ class BaseException(Exception):
                           'critical': self.critical}}
 
 
-class SignatureError(BaseException):
+class SignatureError(BaseBillingException):
 
     code = 10
     name = 'signature error'
 
 
-class ItemFormatError(BaseException):
+class ItemFormatError(BaseBillingException):
 
     code = 11
     name = 'item format error'
 
 
-class UnknownItemError(BaseException):
+class UnknownItemError(BaseBillingException):
 
     code = 20
     name = 'unknown item'
 
 
-class InvalidCountError(BaseException):
+class InvalidCountError(BaseBillingException):
 
     code = 21
     name = 'invalid count'
 
 
-class CallbackError(BaseException):
+class CallbackError(BaseBillingException):
 
     code = 1
     name = 'callback error'

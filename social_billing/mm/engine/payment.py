@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 from social_billing.base_handler import BaseHandler
 from social_billing.base_payment import BasePayment
-from social_billing.core import BillingCore
 from social_billing.mm.engine.order import MMOrder
 from social_billing.vk.engine.errors import SignatureError, InvalidCountError
 from social_billing.vk.engine.signature import Signature

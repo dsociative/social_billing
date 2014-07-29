@@ -8,7 +8,6 @@ from social_billing.web.app import application
 
 
 class BillingThread(Thread):
-
     def __init__(self, social, default_item, name, prices, secret, callback,
                  port=8888):
         super(BillingThread, self).__init__()
@@ -28,11 +27,15 @@ class BillingThread(Thread):
 def main():
     from tests.vk.vk_base_test import TEST_PAYMENT_NAME
 
+
     def callback(self, *a):
         print a
 
-    service = BillingThread(TEST_PAYMENT_NAME,
-                            {'gems': {10: 1, 20: 2}}, 'secretkey', callback)
+    service = BillingThread(
+        TEST_PAYMENT_NAME,
+        {'gems': {10: 1, 20: 2}}, 'secretkey', callback
+    )
+
     service.run()
     print 'started'
 
