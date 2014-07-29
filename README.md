@@ -1,6 +1,14 @@
-[![Build Status](https://travis-ci.org/dsociative/social_billing.png)](https://travis-ci.org/dsociative/social_billing)
+[![Build Status](https://travis-ci.org/dsociative/social_billing.svg?branch=master)](https://travis-ci.org/dsociative/social_billing)
 
 social_billing
 ==============
+Web server that handles payments from social networks
 
-For vk.com payments api
+Support:
+  - vk.com 
+  - my.mail.ru 
+  - odnoklassniki.ru  
+
+Uses:
+  - MongoDB
+  - Tornado
