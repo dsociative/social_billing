@@ -1,12 +1,12 @@
 # -*- coding: utf8 -*-
-from pymongo import Connection
+from pymongo import MongoClient
 from social_billing.vk.engine.errors import CallbackError
 
 
 class BaseOrder(object):
 
     def __init__(self, name, callback):
-        self.db = Connection()['payment_%s' % name]
+        self.db = MongoClient()['payment_%s' % name]
         self.collection = self.db['order']
         self.callback = callback
 
